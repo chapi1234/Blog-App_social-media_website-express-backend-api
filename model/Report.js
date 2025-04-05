@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const ReportSchema = new mongoose.Schema({
     reportedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     postId: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
