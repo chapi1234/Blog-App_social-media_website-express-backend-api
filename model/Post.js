@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const PostSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     content: { type: String, required: true },
@@ -5,6 +7,7 @@ const PostSchema = new mongoose.Schema({
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
     tags: [{ type: String }],
+    images: [{ type: String }],
     isDraft: { type: Boolean, default: false },
     visibility: { type: String, enum: ["public", "private", "friends"], default: "public" },
     createdAt: { type: Date, default: Date.now },
