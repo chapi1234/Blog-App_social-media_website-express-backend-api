@@ -146,7 +146,7 @@ exports.updateReportStatus = async (req, res) => {
   }
 };
 
-
+ 
 exports.deleteReport = async (req, res) => {
   const reportId = req.params.id;
   try {
