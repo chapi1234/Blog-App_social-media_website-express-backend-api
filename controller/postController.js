@@ -253,7 +253,7 @@ exports.likePost = async (req, res) => {
 };
 
 
-exports.unLikepost = async (req, res) => {
+exports.unlikePost = async (req, res) => {
     const postId = req.params.id;
     const userId = req.user._id; 
 
@@ -274,7 +274,7 @@ exports.unLikepost = async (req, res) => {
             });
         }
 
-        post.unlikes.pull(userId);
+        post.likes.pull(userId);
         await post.save();
 
         res.status(200).json({
@@ -332,6 +332,7 @@ exports.sharePost = async (req, res) => {
       sender: userId, 
       type: "share", 
       postId: post._id, 
+      createdAt 
     }));
 
     await Notification.insertMany(notifications);
@@ -352,4 +353,64 @@ exports.sharePost = async (req, res) => {
 
 
 exports.commentPost = async (req, res) => {
-}
+    const post = req.params.id
+    const author = req.user._id;
+
+    try {
+        const { content } = req.body;
+        const createpost = await Post.findById(post);
+
+        if (!createpost) {
+            return res.status(404).json({
+                status: "failed",
+                message: "Post not found"
+            });
+        }
+        const comment = new Comment({
+            post,
+            author,
+            content
+        });
+
+        await comment.save();
+
+        res.status(201).json({
+            status: "success",
+            message: "Comment created successfully",
+            data: comment
+        })
+    } catch (err) {
+        console.log("Error commenting on post", err);
+        res.status(500).json({
+            status: "failed",
+            message: err.message
+        });
+    };
+};
+
+
+exports.getPostComments = async (req, res) => {
+    const postId = req.params.id;
+    try {
+        const comments = await Comment.find({ post: postId }).populate("author", "name email").sort({ createdAt: -1 });
+
+        if (!comments || comments.length === 0) {
+            return res.status(404).json({
+                status: "failed",
+                message: "No comments found for this post"
+            });
+        }
+
+        res.status(200).json({
+            status: "success",
+            message: "Post comments fetched successfully",
+            data: comments
+        });
+    } catch (error) {
+        console.log("Error fetching post comments", error);
+        res.status(500).json({
+            status: "failed",
+            message: error.message
+        });
+    };
+}; 
