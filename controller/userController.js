@@ -50,8 +50,17 @@ exports.getUserById = async (req, res) => {
 
 
 exports.updateUser = async (req, res) => {
-    const userId = req.params.id;
+    const userId = req.params.id; 
+    const authenticatedUserId = req.user._id; 
+    const authenticatedUserRole = req.user.role; 
     try{
+        if (userId !== authenticatedUserId.toString() && !["admin", "superadmin"].includes(authenticatedUserRole)) {
+            return res.status(403).json({
+              status: false,
+              message: "You are not authorized to update this user",
+            });
+          }
+        
         const user = await User.findByIdAndUpdate(
             userId,
             { $set : req.body}, 
@@ -79,26 +88,37 @@ exports.updateUser = async (req, res) => {
 
 
 exports.deleteUser = async (req, res) => {
-    try{
-        const userId = req.params.id;
-        const user = await User.findByIdAndDelete(userId);
+  try {
+    const userId = req.params.id; 
+    const authenticatedUserId = req.user._id; 
+    const authenticatedUserRole = req.user.role; 
 
-        if (!user) {
-            return res.status(404).json({
-                status: false,
-                message: 'User Not Found'
-            });
-        }
+    if (userId !== authenticatedUserId.toString() && !["admin", "superadmin"].includes(authenticatedUserRole)) {
+      return res.status(403).json({
+        status: false,
+        message: "You are not authorized to delete this user",
+      });
+    }
 
-        res.status(200).json({
-            status: true,
-            message: 'User Deleted Successfully',
-            data: user
-        });
-    } catch (err) {
-        console.log("Error in deleting user: ", err);
-        return res.status(500).json({
-            status: false,
-            message: err.message });
-    };
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        status: false,
+        message: "User Not Found",
+      });
+    }
+
+    res.status(200).json({
+      status: true,
+      message: "User Deleted Successfully",
+      data: user,
+    });
+  } catch (err) {
+    console.log("Error in deleting user: ", err);
+    return res.status(500).json({
+      status: false,
+      message: err.message,
+    });
+  }
 };
