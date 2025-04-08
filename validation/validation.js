@@ -22,7 +22,8 @@ const loginValidation = (data) => {
     return schema.validate(data, { abortEarly: false });
 };
 
-const postValidationSchema = (data) => {
+// Create Post validation
+const postValidation = (data) => {
    const schema = Joi.object({
     title: Joi.string().min(3).max(100).required(),
     content: Joi.string().min(10).required(),
@@ -33,5 +34,5 @@ const postValidationSchema = (data) => {
 module.exports = {
     registerValidation,
     loginValidation,
-    postValidationSchema
+    postValidation
 }
