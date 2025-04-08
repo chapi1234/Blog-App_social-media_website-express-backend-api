@@ -48,7 +48,7 @@ exports.getUserById = async (req, res) => {
     };
 };
 
-
+ 
 exports.updateUser = async (req, res) => {
     const userId = req.params.id; 
     const authenticatedUserId = req.user._id; 
