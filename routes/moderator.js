@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const moderatorController = require('../controller/moderatorController');
 
-const { verifyToken, verifyRole } = require('../middleware/verifyToken');
+const { verifyToken, verifyRole } = require('../middleware/verifyToken'); 
 
 router.get('/', verifyToken, verifyRole(["admin", "superadmin"]), moderatorController.getAllModerators);
 router.get('/active', verifyToken, verifyRole(["admin", "superadmin"]), moderatorController.getAllActiveModerators);
