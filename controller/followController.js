@@ -35,6 +35,20 @@ exports.followUser = async (req, res) => {
     await userToFollow.save();
     await currentUser.save();
 
+    const notification = new Notification({
+            recipient: userIdToFollow,
+            sender: userId,
+            type: 'follow'
+        });
+        await notification.save();
+
+        req.io.emit('receiveNotification', {
+            recipient: userIdToFollow,
+            sender: userId,
+            type: 'follow',
+            createdAt: notification.createdAt
+        }
+      );
     res.status(200).json({
       status: true,
       message: "User followed successfully",

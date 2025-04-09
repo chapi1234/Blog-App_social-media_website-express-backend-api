@@ -238,6 +238,22 @@ exports.likePost = async (req, res) => {
         post.likes.push(userId);
         await post.save();
 
+        const notification = new Notification({
+            recipient: post.author._id,
+            sender: userId,
+            type: 'like',
+            postId: postId
+        });
+        await notification.save();
+
+        req.io.emit('receiveNotification', {
+            recipient: post.author._id,
+            sender: userId,
+            type: 'like',
+            postId: postId,
+            createdAt: notification.createdAt
+        });
+        
         res.status(200).json({
             status: "success",
             message: "Post liked successfully",
