@@ -1,0 +1,66 @@
+[
+  {
+    "name": "superadmin",
+    "email": "superadmin@example.com",
+    "password": "superadmin",
+    "role": "superadmin",
+    "permissions": [
+      "manage_admins",
+      "manage_users",
+      "manage_posts",
+      "manage_comments",
+      "manage_settings",
+      "view_analytics"
+    ],
+    "lastLogin": "2025-04-02T00:00:00.000Z",
+    "createdAt": "2025-04-02T00:00:00.000Z"
+  },
+  {
+    "name": "superadmin1",
+    "email": "superadmin1@example.com",
+    "password": "superadmin1",
+    "role": "superadmin",
+    "permissions": [
+      "manage_admins",
+      "manage_users",
+      "manage_posts",
+      "manage_comments",
+      "manage_settings",
+      "view_analytics"
+    ],
+    "lastLogin": "2025-04-02T00:00:00.000Z",
+    "createdAt": "2025-04-02T00:00:00.000Z"
+  },
+  {
+    "name": "superadmin2",
+    "email": "superadmin2@example.com",
+    "password": "superadmin2",
+    "role": "superadmin",
+    "permissions": [
+      "manage_admins",
+      "manage_users",
+      "manage_posts",
+      "manage_comments",
+      "manage_settings",
+      "view_analytics"
+    ],
+    "lastLogin": "2025-04-02T00:00:00.000Z",
+    "createdAt": "2025-04-02T00:00:00.000Z"
+  },
+  {
+    "name": "superadmin3",
+    "email": "superadmin3@example.com",
+    "password": "superadmin3",
+    "role": "superadmin",
+    "permissions": [
+      "manage_admins",
+      "manage_users",
+      "manage_posts",
+      "manage_comments",
+      "manage_settings",
+      "view_analytics"
+    ],
+    "lastLogin": "2025-04-02T00:00:00.000Z",
+    "createdAt": "2025-04-02T00:00:00.000Z"
+  }
+]
