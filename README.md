@@ -90,7 +90,7 @@ This project is a backend API for a **Social Media Blogging Platform** built usi
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/chapi1234/Blog-App_social-media_website-express-backend-api
    cd Blog-App (social media) website express backend api
 
 
